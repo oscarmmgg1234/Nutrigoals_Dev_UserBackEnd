@@ -1,14 +1,20 @@
+/*
+User backend
+*/
+
 const express = require('express');
 const axios = require('axios');
+const { listening_port, api } = require('./constants');
+
 const app = express();
 
-const port = 5001;
+const API = new api;
 
+app.listen(listening_port,null);
 
 async function getFoodSearch(food_expr, access_token){
         let data;
-        console.log('sent request');
-        await axios.post('https://platform.fatsecret.com/rest/server.api',{
+        await axios.post(API.api_baseURL,{
                 headers: {
                         "Content-Type": "application/json",
                         Authorization: "Bearer " + access_token,
@@ -24,35 +30,23 @@ async function getFoodSearch(food_expr, access_token){
 
 }//end of getFoodSearch
 
-
-app.listen(port,()=>console.log('listening on port ' + port ));
-
 app.get('/foodSearch',function(req,res){
-
-
-
-        let urls = "https://platform.fatsecret.com/rest/server.api?method=foods.search&search_expression=" + req.header('food') + "&format=json";
 
         var config = {
                   method: 'post',
-                  url: urls,
+                  url: API.foodSearch(req.header('food')),
                   headers: {
                               'Content-Type': 'application/json',
                               'Authorization': 'Bearer ' + req.header('token'),
-
                   }}
-        console.log(urls);
         axios(config).then(function(response){res.send(JSON.stringify(response.data))})
 });
 
 app.get('/getFood', function(req,res){
 
-        let urls = 'https://platform.fatsecret.com/rest/server.api?method=food.get.v2&food_id=' + req.header('foodID') + '&format=json';
-
         var config = {
-
                 method: 'post',
-                url: urls,
+                url: API.foodGet(req.header('foodID')),
                 headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + req.header('token'),
