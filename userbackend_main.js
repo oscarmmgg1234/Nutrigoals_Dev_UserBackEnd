@@ -8,7 +8,7 @@ const { listening_port, api } = require('./constants');
 
 const app = express();
 
-const API = new api;
+const API = new api();
 
 app.listen(listening_port,null);
 
