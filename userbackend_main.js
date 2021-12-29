@@ -1,10 +1,8 @@
-/*
-User backend
-*/
 
 const express = require('express');
 const axios = require('axios');
 const { listening_port, api } = require('./constants');
+const {cache} = require('./src/server-cache')
 
 const app = express();
 
@@ -24,7 +22,6 @@ async function getFoodSearch(food_expr, access_token){
                         search_expression: food_expr,
                         format: "json",
                 },
-
         }).then(function(res){res=>res.json();data=res.data})
         return data;
 
@@ -42,7 +39,7 @@ app.get('/foodSearch',function(req,res){
         axios(config).then(function(response){res.send(JSON.stringify(response.data))})
 });
 
-app.get('/getFood', function(req,res){
+app.get('/getFood', cache(900), function(req,res){
 
         var config = {
                 method: 'post',
@@ -54,9 +51,3 @@ app.get('/getFood', function(req,res){
         }
         axios(config).then(function(response){res.send(JSON.strigify(response.data))})
 })
-~                                                                                                                                                                                                                                             
-~                                                                                                                                                                                                                                             
-~                                                                                                                                                                                                                                             
-~                                                                                                                                                                                                                                             
-~                                                                                                                                                                                                                                             
-~           
