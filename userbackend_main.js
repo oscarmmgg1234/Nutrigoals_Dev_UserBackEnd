@@ -10,23 +10,6 @@ const API = new api();
 
 app.listen(listening_port,null);
 
-async function getFoodSearch(food_expr, access_token){
-        let data;
-        await axios.post(API.api_baseURL,{
-                headers: {
-                        "Content-Type": "application/json",
-                        Authorization: "Bearer " + access_token,
-                },
-                params: {
-                        method: "foods.search",
-                        search_expression: food_expr,
-                        format: "json",
-                },
-        }).then(function(res){res=>res.json();data=res.data})
-        return data;
-
-}//end of getFoodSearch
-
 app.get('/foodSearch',function(req,res){
 
         var config = {

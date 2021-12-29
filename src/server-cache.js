@@ -12,7 +12,7 @@ module.exports = duration => (req, res,next) =>{
 
     if(cachedResponse){
         res.send(cachedResponse);
-    }
+   }
     else{
         res.originalSend = res.send;
         res.send = body => {
