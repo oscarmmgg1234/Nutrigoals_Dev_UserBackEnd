@@ -1,8 +1,11 @@
-module.exports = class api {
+
+const axios = require('axios');
+
+class http_client{
   constructor() {
     this.api_baseURL = "https://platform.fatsecret.com/rest/server.api";
   }
-  foodSearch(food_expr) {
+  foodSearchCreateURL(food_expr) {
     return (
       this.api_baseURL +
       "?method=foods.search&search_expression=" +
@@ -10,7 +13,7 @@ module.exports = class api {
       "&format=json"
     );
   }
-  foodGet(food_id) {
+  foodGetCreateURL(food_id) {
     return (
       this.api_baseURL +
       "?method=food.get.v2&food_id=" +
@@ -21,4 +24,29 @@ module.exports = class api {
   getBaseURL() {
     return this.api_baseURL;
   }
+  //foodSearch Function
+  getFoodSearch(foodID,API_access_token, callback){
+    var config = {
+      method: 'post',
+      url: this.foodSearchCreateURL(foodID),
+      headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + API_access_token,
+      }}
+axios(config).then(function(response){return callback(response.data)})
+  }
+
+  getFoodWithID(foodID, API_access_token, callback){
+    var config = {
+      method: 'post',
+      url: API.foodGetCreateURL(foodID),
+      headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + API_access_token,
+      }
+}
+axios(config).then(function(response){return callback(response)})
+  }
 };
+
+module.exports = {http_client}

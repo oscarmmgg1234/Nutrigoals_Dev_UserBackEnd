@@ -1,36 +1,27 @@
 
 const express = require('express');
 const axios = require('axios');
-const { listening_port, api } = require('./constants');
-const {cache} = require('./src/server-cache')
+const { listening_port} = require('./src/utils');
+const {http_client} = require('./src/http_client')
+const cache = require('./src/server-cache')
 
-const app = express();
+const server = express();
+server.use(express.json())
 
-const API = new api();
+const API = new http_client();
 
-app.listen(listening_port,null);
+server.listen(listening_port,null);
 
-app.get('/foodSearch',function(req,res){
-
-        var config = {
-                  method: 'post',
-                  url: API.foodSearch(req.header('food')),
-                  headers: {
-                              'Content-Type': 'application/json',
-                              'Authorization': 'Bearer ' + req.header('token'),
-                  }}
-        axios(config).then(function(response){res.send(JSON.stringify(response.data))})
+server.get('/foodSearch',cache(900),function(req,res){
+        API.getFoodSearch(req.body.foodID, req.body.API_access_token,(response)=>{
+                res.send(response)
+        })
+      
 });
 
-app.get('/getFood', cache(900), function(req,res){
-
-        var config = {
-                method: 'post',
-                url: API.foodGet(req.header('foodID')),
-                headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + req.header('token'),
-                }
-        }
-        axios(config).then(function(response){res.send(JSON.strigify(response.data))})
+server.get('/getFood', cache(900), function(req,res){
+        API.getFoodWithID(req.body.foodID, req.body.API_access_token, (response)=>{
+                res.send(response)
+        })
+    
 })

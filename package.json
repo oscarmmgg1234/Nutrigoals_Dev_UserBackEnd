@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "expressjs": "^1.0.1"
+    "axios": "^0.24.0",
+    "expressjs": "^1.0.1",
+    "node-cache": "^5.1.2"
   }
 }
