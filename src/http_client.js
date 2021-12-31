@@ -45,7 +45,7 @@ axios(config).then(function(response){return callback(response.data)})
               'Authorization': 'Bearer ' + API_access_token,
       }
 }
-axios(config).then(function(response){return callback(response)})
+axios(config).then(function(response){return callback(response.data)})
   }
 };
 
