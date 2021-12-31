@@ -39,7 +39,7 @@ axios(config).then(function(response){return callback(response.data)})
   getFoodWithID(foodID, API_access_token, callback){
     var config = {
       method: 'post',
-      url: API.foodGetCreateURL(foodID),
+      url: this.foodGetCreateURL(foodID),
       headers: {
               'Content-Type': 'application/json',
               'Authorization': 'Bearer ' + API_access_token,
