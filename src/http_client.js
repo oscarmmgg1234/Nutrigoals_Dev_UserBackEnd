@@ -5,12 +5,12 @@ class http_client{
   constructor() {
     this.api_baseURL = "https://platform.fatsecret.com/rest/server.api";
   }
-  foodSearchCreateURL(food_expr) {
+  foodSearchCreateURL(food_expr, page_number) {
     return (
       this.api_baseURL +
       "?method=foods.search&search_expression=" +
-      food_expr +
-      "&format=json"
+      food_expr + "&page_number=" + page_number + 
+      "&max_results=20" + "&format=json" 
     );
   }
   foodGetCreateURL(food_id) {
@@ -25,10 +25,10 @@ class http_client{
     return this.api_baseURL;
   }
   //foodSearch Function
-  getFoodSearch(foodID,API_access_token, callback){
+  getFoodSearch(foodID,API_access_token, page_number, callback){
     var config = {
       method: 'post',
-      url: this.foodSearchCreateURL(foodID),
+      url: this.foodSearchCreateURL(foodID, page_number),
       headers: {
                   'Content-Type': 'application/json',
                   'Authorization': 'Bearer ' + API_access_token,
