@@ -17,7 +17,7 @@ server.get('/foodSearch', foodsearch_cache(300), function(req,res){
         console.log("food search request with r.body: " + req);
         console.log("food search request with r.body: " + req.body.foodID);
         console.log("food search request with r.body: " + req.body.page_number);
-        console.log(req.originalUrl);
+        console.log(req.hostname);
         API.getFoodSearch(req.body.foodID, req.body.API_access_token,req.body.page_number, (response)=>{
                 
                 res.send(response)
