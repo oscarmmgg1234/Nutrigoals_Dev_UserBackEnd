@@ -7,6 +7,7 @@ const foodsearch_cache = require('./src/node-cache/foodSearch-cache');
 const foodget_cache = require('./src/node-cache/foodGet-cache');
 
 const server = express();
+server.use(express.urlencoded({extended: true}));
 server.use(express.json({limit: "10mb"}))
 
 const API = new http_client();
