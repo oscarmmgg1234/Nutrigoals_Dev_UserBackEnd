@@ -1,10 +1,10 @@
 
 const express = require('express');
 const axios = require('axios');
-const { listening_port} = require('./src/utils');
-const {http_client} = require('./src/http_client')
-const foodsearch_cache = require('./src/foodSearch-cache');
-const foodget_cache = require('./src/foodGet-cache');
+const { listening_port} = require('./src/Constants/constants');
+const {http_client} = require('./src/Serverhttp_client')
+const foodsearch_cache = require('./src/node-cache/foodSearch-cache');
+const foodget_cache = require('./src/node-cache/foodGet-cache');
 
 const server = express();
 server.use(express.json())
