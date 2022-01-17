@@ -13,7 +13,7 @@ const API = new http_client();
 
 server.listen(listening_port,null);
 
-server.get('/foodSearch',function(req,res){
+server.get('/foodSearch', foodsearch_cache(300), function(req,res){
         console.log("food search request with r.body: " + req);
         console.log("food search request with r.body: " + req.body.foodID);
         console.log("food search request with r.body: " + req.body.page_number);
