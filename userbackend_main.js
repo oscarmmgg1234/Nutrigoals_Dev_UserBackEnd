@@ -15,7 +15,8 @@ server.listen(listening_port,null);
 
 server.get('/foodSearch', foodsearch_cache(300), function(req,res){
         API.getFoodSearch(req.body.foodID, req.body.API_access_token,req.body.page_number, (response)=>{
-                console.log(req.body)
+                console.log("food search request with r.body: " + req.body);
+                console.log("food searh server response body: " + response);
                 res.send(response)
         })
       
