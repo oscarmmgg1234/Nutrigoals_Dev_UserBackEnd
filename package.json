@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0",
-    "expressjs": "^1.0.1",
+    "express": "^4.17.2",
     "node-cache": "^5.1.2"
   }
 }
