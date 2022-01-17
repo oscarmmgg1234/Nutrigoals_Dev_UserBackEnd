@@ -8,7 +8,7 @@ const foodsearch_cache = require('./src/node-cache/foodSearch-cache');
 const foodget_cache = require('./src/node-cache/foodGet-cache');
 
 const server = express();
-server.use(bodyParser.json())
+server.use(express.json())
 
 const API = new http_client();
 
