@@ -4,7 +4,7 @@ const foodsearch_cache = new serverCache();
 
 module.exports = duration => (req, res,next) =>{
 
-    if(req.method !== 'GET'){
+    if(req.method !== 'POST'){
         return next();
     }
     const key = `${req.body.page_number}${req.body.foodID}`;
