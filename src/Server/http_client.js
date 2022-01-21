@@ -1,8 +1,12 @@
 
 const axios = require('axios');
+const DB = require('./my_sql_driver');
+const {status} = require('../Constants/constants');
+const { response } = require('express');
 
-class http_client{
+class Server extends DB{
   constructor() {
+    super();
     this.api_baseURL = "https://platform.fatsecret.com/rest/server.api";
   }
   foodSearchCreateURL(food_expr, page_number) {
@@ -47,7 +51,25 @@ axios(config).then(function(response){return callback(response.data)})
 }
 axios(config).then(function(response){return callback(response.data)})
   }
+
+get_macro_data(userOBJ, callback){
+  this.get_user_macro_data_handler(userOBJ, (res)=>{
+    if(res){
+      let bfData = res.filter((obj)=>{if(obj.food_group === "BF"){return obj}});
+      let lunchData = res.filter((obj)=>{if(obj.food_group === "LU"){return obj}});
+      let dinnerData = res.filter((obj)=>{if(obj.food_group === "DI"){return obj}});
+      let snackData = res.filter((obj)=>{if(obj.food_group === "SN"){return obj}});
+      let responseData = {bf: bfData, lu: lunchData, di: dinnerData, sn: snackData};
+      //sort and prepare data
+      callback(responseData)
+    }
+    else{
+      return callback(status.failed);
+    }
+  })
+}
+
 };
 
 
-module.exports = {http_client}
+module.exports = {Server}

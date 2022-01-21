@@ -1,3 +1,5 @@
 const listening_port = 5001;
 
-module.exports = { listening_port };
+const status = {succeded: {valid: true}, failed: {valid: false}}
+
+module.exports = { listening_port, status };
