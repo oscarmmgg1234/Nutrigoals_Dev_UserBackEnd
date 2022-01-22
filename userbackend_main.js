@@ -42,3 +42,8 @@ server.post('/createMacroData', (req,res)=>{
         API.create_user_macro_data_handler(req.body);
         res.send(status.succeded);
 })
+
+server.post('/deleteMacroData', (req,res)=>{
+        API.setInactive_macro_data(req.body);
+        res.send(status.succeded)
+})

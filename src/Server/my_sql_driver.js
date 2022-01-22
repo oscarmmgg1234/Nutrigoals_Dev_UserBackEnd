@@ -19,7 +19,7 @@ module.exports = class DB {
   }
 
   get_user_macro_data_handler(userOBJ, callback) {
-    let query = `SELECT * from user_food_log WHERE (user_id = '${userOBJ.userID}' AND date_category = '${userOBJ.date}')`;
+    let query = `SELECT * from user_food_log WHERE (user_id = '${userOBJ.userID}' AND date_category = '${userOBJ.date} AND food_isActive = true')`;
     this.db.query(query, (err, result) => {
       if (err !== null) {
         console.log(err)
@@ -30,6 +30,16 @@ module.exports = class DB {
       }
     });
   }
+
+  setInactive_macro_data = (userOBJ) =>{
+    let query = `UPDATE user_food_log SET food_isActive = false WHERE ('${userOBJ.userID}' AND date_category = '${userOBJ.date}' AND food_id = ${userOBJ.food_id})`
+    this.db.query(query, (err,res)=>{
+        if(err !== null){
+            console.log(err);
+        }
+    })
+  }
+
 
   create_user_macro_data_handler(userOBJ) {
     this.db.query(
