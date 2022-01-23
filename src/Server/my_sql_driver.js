@@ -31,7 +31,7 @@ module.exports = class DB {
     });
   }
 
-  setInactive_macro_data = (userOBJ) =>{
+  setInactive_macro_data(userOBJ){
     let query = `UPDATE user_food_log SET food_isActive = false WHERE ('${userOBJ.userID}' AND date_category = '${userOBJ.date}' AND food_id = ${userOBJ.food_id})`
     this.db.query(query, (err,res)=>{
         if(err !== null){
@@ -41,7 +41,7 @@ module.exports = class DB {
   }
 
 
-  create_user_macro_data_handler(userOBJ) {
+  create_user_macro_data_handler(userOBJ){
     this.db.query(
       "INSERT INTO user_food_log(user_id, date_category, food_name, food_id, food_protein, food_fat, food_carbohydrate, food_sugar, food_sodium, food_brandName, food_servingDescription, time_added, food_group) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"
     , [userOBJ.user_id, new Date(), userOBJ.food_name,userOBJ.food_id, userOBJ.food_protein, userOBJ.food_fat, userOBJ.food_carbohydrate, userOBJ.food_sugar, 
